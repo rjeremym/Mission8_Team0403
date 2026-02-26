@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Quadrant
+
+<h1>Add a New Task</h1>
+
+<form method="post">
+
+    @* Hidden TaskId input, used explicitly to retain value when editing a record *@
+    <input type="hidden" asp-for="TaskId" />
+
+    @* Task input *@
+    <p>
+        <label asp-for="task">Task:</label>
+        <br>
+        <input asp-for="task" required />
+        <br>
+    </p>
+
+    @* Due Date input *@
+    <p>
+        <label asp-for="dueDate">Due Date:</label>
+        <br>
+        <input asp-for="dueDate" />
+        <br>
+    </p>
+
+    @* Quadrant dropdown *@
+    <p>
+        <label asp-for="quadrant">Quadrant:</label>
+        <br>
+        <select asp-for="quadrant" required>
+            <option value="1">Urgent and Important</option>
+            <option value="2">Important but Not Urgent</option>
+            <option value="3">Not Important but Urgent</option>
+            <option value="4">Not Important and Not Urgent</option>
+        </select>
+        <br>
+    </p>
+
+
+    @* Category dropdown *@
+    <p>
+        <label asp-for="CategoryId">Category:</label>
+        <br>
+        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
+            <option value="">Select a category</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+        <br>
+    </p>
+
+    @* Checkbox to mark task if a task was compleated *@
+    <p>
+        <label asp-for="completed">Task Compleated?</label>
+        <br>
+        <input type="checkbox" asp-for="completed" />
+        <br>
+    </p>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+    <div asp-validation-summary="All"></div>
+</form>
