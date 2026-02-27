@@ -1,0 +1,19 @@
+@model Mission8_Assignment.Models.Quadrant
+
+@{
+    ViewData["Title"] = "Delete Task";
+}
+
+<div class="container my-4">
+    <div class="alert alert-danger">
+        <h2>Confirm Deletion</h2>
+        <p>Are you absolutely sure you want to delete the task <strong>@Model.task</strong>?</p>
+        
+        <form method="post" asp-action="Delete">
+            <input type="hidden" asp-for="TaskId" />
+            
+            <button type="submit" class="btn btn-danger">Yes, Delete It</button>
+            <a asp-controller="Home" asp-action="Quadrants" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

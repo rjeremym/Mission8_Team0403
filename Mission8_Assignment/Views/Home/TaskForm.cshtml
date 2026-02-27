@@ -1,0 +1,49 @@
+@model Mission8_Assignment.Models.Quadrant
+
+@{
+    ViewData["Title"] = Model.TaskId == 0 ? "Add Task" : "Edit Task";
+}
+
+<div class="container my-4">
+    <h2>@ViewData["Title"]</h2>
+
+    <form method="post">
+        <input type="hidden" asp-for="TaskId" />
+
+        <div class="mb-3">
+            <label asp-for="task" class="form-label">Task Name</label>
+            <input asp-for="task" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="dueDate" class="form-label">Due Date</label>
+            <input asp-for="dueDate" type="date" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="quadrant" class="form-label">Quadrant (1-4)</label>
+            <select asp-for="quadrant" class="form-select" required>
+                <option value="">-- Select Quadrant --</option>
+                <option value="1">Quadrant I (Important / Urgent)</option>
+                <option value="2">Quadrant II (Important / Not Urgent)</option>
+                <option value="3">Quadrant III (Not Important / Urgent)</option>
+                <option value="4">Quadrant IV (Not Important / Not Urgent)</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CategoryId" class="form-label">Category</label>
+            <select asp-for="CategoryId" class="form-select" asp-items="@(new SelectList(ViewBag.Categories, "CategoryId", "CategoryName"))">
+                <option value="">-- Select Category (Optional) --</option>
+            </select>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input asp-for="completed" class="form-check-input" type="checkbox" />
+            <label asp-for="completed" class="form-check-label">Task Completed</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Task</button>
+        <a asp-controller="Home" asp-action="Quadrants" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
