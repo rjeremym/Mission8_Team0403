@@ -63,7 +63,7 @@
                                         @* Actions for this task: edit, delete, and mark complete. *@
                                         <div class="ms-3 text-nowrap">
                                             @* Edit and Delete use GET requests via anchor tag helpers, routing by TaskId. *@
-                                            <a asp-action="Edit"
+                                            <a asp-action="addTask"
                                                asp-route-id="@item.TaskId"
                                                class="btn btn-sm btn-primary me-1">
                                                 Edit
@@ -124,7 +124,7 @@
                                             }
                                         </div>
                                         <div class="ms-3 text-nowrap">
-                                            <a asp-action="Edit"
+                                            <a asp-action="addTask"
                                                asp-route-id="@item.TaskId"
                                                class="btn btn-sm btn-primary me-1">
                                                 Edit
@@ -186,7 +186,7 @@
                                             }
                                         </div>
                                         <div class="ms-3 text-nowrap">
-                                            <a asp-action="Edit"
+                                            <a asp-action="addTask"
                                                asp-route-id="@item.TaskId"
                                                class="btn btn-sm btn-primary me-1">
                                                 Edit
@@ -245,7 +245,7 @@
                                             }
                                         </div>
                                         <div class="ms-3 text-nowrap">
-                                            <a asp-action="Edit"
+                                            <a asp-action="addTask"
                                                asp-route-id="@item.TaskId"
                                                class="btn btn-sm btn-primary me-1">
                                                 Edit
@@ -274,3 +274,4 @@
         </div>
     </div>
 </div>
+

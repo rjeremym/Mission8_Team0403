@@ -7,7 +7,7 @@
 
 <h1>Add a New Task</h1>
 
-<form method="post">
+<form asp-action="addTask" method="post">
 
     @* Hidden TaskId input, used explicitly to retain value when editing a record *@
     <input type="hidden" asp-for="TaskId" />
