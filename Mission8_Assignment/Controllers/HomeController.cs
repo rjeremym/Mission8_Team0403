@@ -8,7 +8,7 @@ namespace Mission8_Assignment.Controllers
     {
         private IQuadrantRepository _repo;
 
-        // Constructor asks for the Repository, NOT the Context directly!
+        // Inject the repository through the constructor
         public HomeController(IQuadrantRepository temp)
         {
             _repo = temp;
@@ -19,10 +19,10 @@ namespace Mission8_Assignment.Controllers
             return View();
         }
 
-        // --- READ: The Main Quadrants View ---
+        // Show all tasks organized by quadrant
         public IActionResult Quadrants()
         {
-            // The rubric says: "Only display tasks that have not been completed."
+            // Filter out completed tasks
             var tasks = _repo.Quadrants
                 .Where(x => x.completed == false)
                 .ToList();
@@ -35,10 +35,9 @@ namespace Mission8_Assignment.Controllers
         public IActionResult AddTask()
         {
             ViewBag.Categories = _repo.Categories.ToList();
-            
-            // I am assuming Teammate #2 names the form view "TaskForm.cshtml". 
-            // If they name it "AddEdit.cshtml", change this string!
-            return View("TaskForm", new Quadrant()); 
+
+            // Update this string if the form view has a different name
+            return View("TaskForm", new Quadrant());
         }
 
         [HttpPost]
@@ -47,10 +46,10 @@ namespace Mission8_Assignment.Controllers
             if (ModelState.IsValid)
             {
                 _repo.AddTask(q);
-                return RedirectToAction("Quadrants"); // Send them back to the grid
+                return RedirectToAction("Quadrants");
             }
-            
-            // If invalid, reload dropdowns and show form again
+
+            // Reload dropdowns before returning the form
             ViewBag.Categories = _repo.Categories.ToList();
             return View("TaskForm", q);
         }
@@ -60,10 +59,10 @@ namespace Mission8_Assignment.Controllers
         public IActionResult Edit(int id)
         {
             var taskToEdit = _repo.Quadrants.Single(x => x.TaskId == id);
-            
+
             ViewBag.Categories = _repo.Categories.ToList();
-            
-            // We reuse the same form view for editing
+
+            // Reuse the same form for add and edit
             return View("TaskForm", taskToEdit);
         }
 
@@ -85,7 +84,7 @@ namespace Mission8_Assignment.Controllers
         public IActionResult Delete(int id)
         {
             var taskToDelete = _repo.Quadrants.Single(x => x.TaskId == id);
-            return View(taskToDelete); // Assuming Teammate #3 makes Delete.cshtml
+            return View(taskToDelete);
         }
 
         [HttpPost]
@@ -95,15 +94,15 @@ namespace Mission8_Assignment.Controllers
             return RedirectToAction("Quadrants");
         }
 
-        // --- MARK COMPLETE (Extra feature to make life easy) ---
-        // Teammate #3 can just put a form with a button next to each task to hit this action
+        // --- MARK COMPLETE ---
+        // Wire up a form/button in the view to POST to this action
         [HttpPost]
         public IActionResult MarkComplete(int id)
         {
             var task = _repo.Quadrants.Single(x => x.TaskId == id);
             task.completed = true;
             _repo.UpdateTask(task);
-            
+
             return RedirectToAction("Quadrants");
         }
     }
